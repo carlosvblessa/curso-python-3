@@ -1,0 +1,12 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug pytest",
+      "type": "python",
+      "request": "test",
+      "console": "integratedTerminal",
+      "envFile": "${workspaceFolder}/.env" 
+    }
+  ]
+}

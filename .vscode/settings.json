@@ -1,0 +1,9 @@
+{
+  // Desabilita unittest se for usar pytest:
+  "python.testing.unittestEnabled": false,
+  "python.testing.pytestEnabled": true,
+  "python.testing.pytestArgs": [
+    "tests"
+  ]
+}
+

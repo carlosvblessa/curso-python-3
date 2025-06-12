@@ -1,0 +1,25 @@
+[run]
+source = .
+
+omit =
+    config.py
+
+[report]
+exclude_lines =
+    def __str__
+
+exclude_also =
+    def __repr__
+    if self.debug:
+    if settings.DEBUG
+    raise AssertionError
+    raise NotImplementedError
+    if 0:
+    if __name__ == .__main__.:
+    if TYPE_CHECKING:
+    class .*\bProtocol\):
+    @(abc\.)?abstractmethod
+
+[html]
+directory = coverage_relatorio_html
+

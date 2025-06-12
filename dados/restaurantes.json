@@ -1,0 +1,30 @@
+[
+    {
+        "nome": "praça",
+        "categoria": "Gourmet",
+        "ativo": false,
+        "avaliacoes": [],
+        "cardapio": [
+            {
+                "__type__": "Bebida",
+                "nome": "Suco de Melancia",
+                "preco": 4.6,
+                "tamanho": "grande"
+            },
+            {
+                "__type__": "Prato",
+                "nome": "Pãozinho",
+                "preco": 1.9,
+                "descricao": "O melhor pão da cidade"
+            },
+            {
+                "__type__": "Sobremesa",
+                "nome": "Sorvete de Chocolate",
+                "preco": 10.96,
+                "descricao": "Sorvete artesanal de chocolate belga",
+                "tipo": "Sorvete",
+                "tamanho": "Médio"
+            }
+        ]
+    }
+]
