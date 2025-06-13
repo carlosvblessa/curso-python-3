@@ -66,7 +66,7 @@ A API permite:
 
 - Cadastrar, listar, ativar/inativar restaurantes
 - Avaliar restaurantes por clientes
-- Adicionar/remover itens ao cardápio (pratos, bebidas, sobremesas)
+- Adicionar itens ao cardápio (pratos, bebidas, sobremesas)
 - Aplicar descontos específicos por tipo de item (5% para pratos, 8% para bebidas, 15% para sobremesas)
 - Visualizar resumos e detalhes completos de restaurantes
 
