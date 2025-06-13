@@ -60,6 +60,12 @@ API RESTful em FastAPI para gerenciar restaurantes, cardápios e avaliações, c
 
 Acesse `http://127.0.0.1:8000/docs` para visualizar a documentação interativa da API.
 
+5. (Opcional) Instale os hooks do pre-commit:
+
+   ```bash
+   pre-commit install
+   ```
+
 ## Uso
 
 A API permite:
