@@ -5,7 +5,8 @@ from modelos.cardapio.item_cardapio import ItemCardapio
 
 class Sobremesa(ItemCardapio):
     '''
-    Representa uma bebida do cardápio, herdando funcionalidades de ItemCardapio.
+    Representa uma bebida do cardápio, herdando funcionalidades
+    de ItemCardapio.
 
     Attributes:
         _nome (str): Nome da sobremesa.
@@ -15,7 +16,13 @@ class Sobremesa(ItemCardapio):
         tamanho (float): Tamanho da sobremesa.
     '''
 
-    def __init__(self, nome: str, preco: float, descricao: str, tipo: str, tamanho: str):
+    def __init__(
+            self,
+            nome: str,
+            preco: float,
+            descricao: str,
+            tipo: str,
+            tamanho: str):
         '''
         Inicializa uma instância de Sobremesa.
 
@@ -48,10 +55,9 @@ class Sobremesa(ItemCardapio):
     @classmethod
     def from_dict(cls, data: dict) -> 'Sobremesa':
         return cls(
-            nome     = data['nome'],
-            preco    = data['preco'],
-            descricao= data['descricao'],
-            tipo     = data['tipo'],
-            tamanho  = data['tamanho']
-    )
-
+            nome=data['nome'],
+            preco=data['preco'],
+            descricao=data['descricao'],
+            tipo=data['tipo'],
+            tamanho=data['tamanho']
+        )

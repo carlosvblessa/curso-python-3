@@ -1,15 +1,42 @@
 [
     {
-        "nome": "praça",
-        "categoria": "Gourmet",
-        "ativo": false,
-        "avaliacoes": [],
+        "nome": "Restaurante Teste",
+        "categoria": "Teste",
+        "ativo": true,
+        "avaliacoes": [
+            {
+                "cliente": "João",
+                "nota": 4.5
+            },
+            {
+                "cliente": "João",
+                "nota": 4.0
+            },
+            {
+                "cliente": "João",
+                "nota": 4.3
+            },
+            {
+                "cliente": "João",
+                "nota": 4.9
+            },
+            {
+                "cliente": "João",
+                "nota": 5.0
+            }
+        ],
         "cardapio": [
+            {
+                "__type__": "Prato",
+                "nome": "Strogonoff",
+                "preco": 29.9,
+                "descricao": "Delicioso strogonoff de frango"
+            },
             {
                 "__type__": "Bebida",
                 "nome": "Suco de Melancia",
                 "preco": 4.6,
-                "tamanho": "grande"
+                "tamanho": 220
             },
             {
                 "__type__": "Prato",
@@ -23,7 +50,113 @@
                 "preco": 10.96,
                 "descricao": "Sorvete artesanal de chocolate belga",
                 "tipo": "Sorvete",
-                "tamanho": "Médio"
+                "tamanho": 150
+            }
+        ]
+    },
+    {
+        "nome": "Sabor & Cia",
+        "categoria": "brasileira",
+        "ativo": true,
+        "avaliacoes": [
+            {
+                "cliente": "João",
+                "nota": 3.5
+            },
+            {
+                "cliente": "João",
+                "nota": 3.9
+            },
+            {
+                "cliente": "João",
+                "nota": 4.3
+            },
+            {
+                "cliente": "João",
+                "nota": 5
+            },
+            {
+                "cliente": "João",
+                "nota": 4.5
+            }
+        ],
+        "cardapio": [
+            {
+                "__type__": "Prato",
+                "nome": "Feijoada",
+                "preco": 39.9,
+                "descricao": "Tradicional feijoada com carnes nobres"
+            },
+            {
+                "__type__": "Bebida",
+                "nome": "Suco",
+                "preco": 10.0,
+                "tamanho": 500
+            },
+            {
+                "__type__": "Sobremesa",
+                "nome": "Sorvete",
+                "preco": 10.0,
+                "descricao": "Sorvete de melancia",
+                "tipo": "Doce",
+                "tamanho": 500
+            }
+        ]
+    },
+    {
+        "nome": "Praça",
+        "categoria": "Gourmet",
+        "ativo": false,
+        "avaliacoes": [
+            {
+                "cliente": "João",
+                "nota": 5
+            },
+            {
+                "cliente": "João",
+                "nota": 3.5
+            },
+            {
+                "cliente": "João",
+                "nota": 4.5
+            },
+            {
+                "cliente": "João",
+                "nota": 4.5
+            },
+            {
+                "cliente": "João",
+                "nota": 4.8
+            },
+            {
+                "cliente": "João",
+                "nota": 4.9
+            },
+            {
+                "cliente": "João",
+                "nota": 5.0
+            }
+        ],
+        "cardapio": [
+            {
+                "__type__": "Bebida",
+                "nome": "Suco de Melancia",
+                "preco": 4.6,
+                "tamanho": 500
+            },
+            {
+                "__type__": "Prato",
+                "nome": "Pãozinho",
+                "preco": 1.9,
+                "descricao": "O melhor pão da cidade"
+            },
+            {
+                "__type__": "Sobremesa",
+                "nome": "Sorvete de Chocolate",
+                "preco": 10.96,
+                "descricao": "Sorvete artesanal de chocolate belga",
+                "tipo": "Sorvete",
+                "tamanho": 150
             }
         ]
     }

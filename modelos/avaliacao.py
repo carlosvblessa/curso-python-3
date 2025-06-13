@@ -20,7 +20,5 @@ class Avaliacao:
         Raises:
         - ValueError: Se a nota não for um número entre 1 e 5.
         """
-        if not (isinstance(nota, (int, float)) and 1 <= nota <= 5):
-            raise ValueError("A nota deve ser um número entre 1 e 5.")
         self._cliente = cliente
         self._nota = nota

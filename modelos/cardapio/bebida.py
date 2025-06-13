@@ -5,7 +5,8 @@ from modelos.cardapio.item_cardapio import ItemCardapio
 
 class Bebida(ItemCardapio):
     '''
-    Representa uma bebida do cardápio, herdando funcionalidades de ItemCardapio.
+    Representa uma bebida do cardápio, herdando funcionalidades
+    de ItemCardapio.
 
     Attributes:
         _nome (str): Nome da bebida.
@@ -38,7 +39,7 @@ class Bebida(ItemCardapio):
     @classmethod
     def from_dict(cls, data: dict) -> 'Bebida':
         return cls(
-            nome   = data['nome'],
-            preco  = data['preco'],
-            tamanho= data['tamanho']
-    )
+            nome=data['nome'],
+            preco=data['preco'],
+            tamanho=data['tamanho']
+        )

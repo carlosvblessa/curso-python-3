@@ -5,7 +5,8 @@ from modelos.cardapio.item_cardapio import ItemCardapio
 
 class Prato(ItemCardapio):
     '''
-    Representa um prato do cardápio, herdando funcionalidades de ItemCardapio.
+    Representa um prato do cardápio, herdando funcionalidades
+    de ItemCardapio.
 
     Attributes:
         _nome (str): Nome do prato.
@@ -25,7 +26,6 @@ class Prato(ItemCardapio):
         super().__init__(nome, preco)
         self.descricao: str = descricao
 
-
     def __str__(self):
         return self._nome
 
@@ -39,7 +39,7 @@ class Prato(ItemCardapio):
     @classmethod
     def from_dict(cls, data: dict) -> 'Prato':
         return cls(
-            nome     = data['nome'],
-            preco    = data['preco'],
-            descricao= data['descricao']
-    )
+            nome=data['nome'],
+            preco=data['preco'],
+            descricao=data['descricao']
+        )

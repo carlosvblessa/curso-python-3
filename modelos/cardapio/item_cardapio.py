@@ -2,6 +2,7 @@
 
 from abc import ABC, abstractmethod
 
+
 class ItemCardapio(ABC):
     '''
     Representa um item do cardápio de um restaurante.

@@ -5,8 +5,7 @@ pre_commit==4.2.0
 pytest==8.4.0
 pytest-cov==6.1.1
 pytest-mock==3.14.1
-colorama==0.4.6
-types-colorama==0.4.15.20240311
 requests==2.32.4
 fastapi==0.115.12
 uvicorn==0.34.3
+httpx==0.28.1

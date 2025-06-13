@@ -1,184 +1,206 @@
-# Gerenciador de Restaurantes (curso Python 2)
+# Saborexpress API (curso Python 3)
 
-Aplicação de linha de comando em Python para cadastro, listagem, ativação/inativação e avaliação de restaurantes, com **persistência de dados** em JSON, desenvolvida como exercício no segundo módulo do curso de Python. A aplicação evidencia práticas de **POO**, **tratamento de arquivos**, uso de **bibliotecas externas** e **testes automatizados**.
+API RESTful em FastAPI para gerenciar restaurantes, cardápios e avaliações, com persistência de dados em JSON. Desenvolvida como exercício no terceiro módulo do curso de Python, esta aplicação demonstra práticas de **Orientação a Objetos**, **herança**, **polimorfismo**, uso de **classes abstratas**, integração com **FastAPI**, validação com **Pydantic**, **testes automatizados** e **documentação interativa**.
 
 ## Sumário
 
-- [Gerenciador de Restaurantes (curso Python 2)](#gerenciador-de-restaurantes-curso-python-2)
+- [Saborexpress API (curso Python 3)](#saborexpress-api-curso-python-3)
   - [Sumário](#sumário)
   - [Pré-requisitos](#pré-requisitos)
   - [Instalação](#instalação)
   - [Uso](#uso)
+  - [Endpoints da API](#endpoints-da-api)
   - [Estrutura do Projeto](#estrutura-do-projeto)
-  - [Descrição das Funções](#descrição-das-funções)
-    - [`app.py`](#apppy)
+  - [Descrição dos Componentes](#descrição-dos-componentes)
+    - [`main.py`](#mainpy)
     - [`modelos/restaurante.py`](#modelosrestaurantepy)
-    - [`modelos/avaliacao.py`](#modelosavaliacaopy)
+    - [`modelos/cardapio/`](#modeloscardapio)
+      - [`item_cardapio.py`](#item_cardapiopy)
+      - [`prato.py`, `bebida.py`, `sobremesa.py`](#pratopy-bebidapy-sobremesapy)
+    - [`schemas/schemas.py`](#schemasschemaspy)
   - [Conceitos Abordados no Curso](#conceitos-abordados-no-curso)
   - [Boas Práticas de Código](#boas-práticas-de-código)
-  - [Testes](#testes)
+  - [Testes Automatizados](#testes-automatizados)
   - [Dependências](#dependências)
+  - [TODO](#todo)
 
 ## Pré-requisitos
 
 * Python 3.10 ou superior
-* `pip` (para instalar dependências de desenvolvimento)
+* `pip` e `venv` para gerenciamento de dependências
+* Ambiente virtual configurado
 
 ## Instalação
 
-1. **Clone** este repositório e entre na pasta:
+1. **Clone** este repositório:
 
    ```bash
-   git clone https://github.com/carlosvblessa/curso-python-2
-   cd curso-python-2
+   git clone https://github.com/carlosvblessa/curso-python-3
+   cd curso-python-3
    ```
+
 2. **Crie** e ative um ambiente virtual:
 
    ```bash
    python -m venv venv
    source venv/bin/activate
    ```
+
 3. **Instale** as dependências:
 
    ```bash
    pip install -r requirements.txt
    ```
 
+4. Inicie o servidor:
+
+   ```bash
+   uvicorn main:app --reload
+   ```
+
+Acesse `http://127.0.0.1:8000/docs` para visualizar a documentação interativa da API.
+
 ## Uso
 
-Para executar a aplicação:
+A API permite:
 
-```bash
-python app.py
-```
+- Cadastrar, listar, ativar/inativar restaurantes
+- Avaliar restaurantes por clientes
+- Adicionar/remover itens ao cardápio (pratos, bebidas, sobremesas)
+- Aplicar descontos específicos por tipo de item (5% para pratos, 8% para bebidas, 15% para sobremesas)
+- Visualizar resumos e detalhes completos de restaurantes
 
-Ao iniciar, o menu exibe as opções:
+Todos os dados são persistidos em `dados/restaurantes.json`.
 
-1. **Cadastrar restaurante** — registra nome e categoria (por padrão inativo)
-2. **Listar restaurantes** — exibe todos os restaurantes com média de avaliações e status
-3. **Alternar estado do restaurante** — ativa ou inativa um restaurante existente
-4. **Avaliar restaurante** — registra nota (1–5) de um cliente para um restaurante
-5. **Sair** — finaliza a aplicação
+## Endpoints da API
 
-Os dados são carregados de `dados/restaurantes.json` ao iniciar e salvos automaticamente a cada alteração.
+| Método | Rota | Descrição |
+|--------|------|-----------|
+| `POST` | `/restaurants` | Cadastra novo restaurante |
+| `GET` | `/restaurants` | Lista todos os restaurantes com detalhes |
+| `GET` | `/restaurants/summary` | Lista resumo (nome, categoria, média e status) |
+| `PATCH` | `/restaurants/{nome}/toggle` | Ativa/inativa restaurante |
+| `POST` | `/restaurants/{nome}/rating` | Registra avaliação |
+| `POST` | `/restaurants/{nome}/menu` | Adiciona item ao cardápio |
+| `GET` | `/restaurants/{nome}/menu` | Lista o cardápio de um restaurante |
+| `PATCH` | `/restaurants/{nome}/menu/{item_nome}/discount` | Aplica desconto ao item |
+
+Documentação interativa disponível em:
+- Swagger UI: `http://127.0.0.1:8000/docs`
+- ReDoc: `http://127.0.0.1:8000/redoc`
 
 ## Estrutura do Projeto
 
 ```
-curso-python-2/
+curso-python-3/
 ├── dados/                        
-│   └── restaurantes.json        # Armazenamento persistente (criado em tempo de execução)
+│   └── restaurantes.json        # Armazenamento persistente
 ├── modelos/
+│   ├── restaurante.py           # Classe Restaurante e lógica de persistência
 │   ├── avaliacao.py             # Classe Avaliacao
-│   └── restaurante.py           # Classe Restaurante e lógica de persistência
+│   └── cardapio/
+│       ├── item_cardapio.py     # Classe abstrata ItemCardapio
+│       ├── prato.py             # Classe Prato
+│       ├── bebida.py            # Classe Bebida
+│       └── sobremesa.py         # Classe Sobremesa
+├── schemas/
+│   └── schemas.py               # Modelos Pydantic para validação de dados
 ├── tests/
-│   └── test_app.py              # Testes unitários com pytest
-├── app.py                       # Interface de linha de comando
+│   └── test_main.py             # Testes unitários com pytest
+├── main.py                      # Servidor FastAPI
 └── requirements.txt             # Dependências do projeto
 ```
 
-## Descrição das Funções
+## Descrição dos Componentes
 
-### `app.py`
+### `main.py`
 
-* **`exibir_nome_app()`**
-  Exibe o título estilizado da aplicação.
-
-* **`exibir_opcoes()`**
-  Lista as opções de menu (inclusão da opção de avaliação).
-
-* **`exibir_subtitulo(texto: str)`**
-  Limpa a tela e imprime um subtítulo com bordas de `*`.
-
-* **`cadastrar_restaurante()`**
-  Coleta nome e categoria; verifica duplicatas; instancia `Restaurante`; persiste dados.
-
-* **`listar_restaurantes()`**
-  Carrega subtítulo e delega a exibição formatada ao método de classe `Restaurante.listar_restaurantes()`.
-
-* **`alternar_estado_restaurante()`**
-  Busca restaurante por nome; chama `Restaurante.alternar_estado()`; persiste dados.
-
-* **`avaliar_restaurante()`**
-  Recebe nome, nota e cliente; chama `Restaurante.receber_avaliacao()`; trata `ValueError`.
-
-* **`main()`**
-  Loop principal: carrega dados via `Restaurante.carregar_dados()`, exibe menu, roteia opções com `match/case` e pausa entre operações.
+- Configuração do servidor FastAPI com ciclo de vida (`lifespan`) para carregar/salvar dados automaticamente.
+- Definição dos endpoints com tratamento de requisições HTTP.
+- Validação de entrada com `Pydantic`.
+- Tratamento de erros customizado.
 
 ### `modelos/restaurante.py`
 
-* **`Restaurante.carregar_dados()`** + **`Restaurante.salvar_dados()`**
-  Leitura e escrita de JSON em `dados/restaurantes.json`.
+- Representa um restaurante com nome, categoria, estado ativo/inativo, lista de avaliações e cardápio.
+- Métodos:
+  - `carregar_dados()` e `salvar_dados()` — persistência via JSON
+  - `alternar_estado()` — inverte status do restaurante
+  - `receber_avaliacao()` — adiciona nova avaliação
+  - `adicionar_ao_cardapio()` — inclui item ao cardápio
+- Propriedades calculadas:
+  - `media_avaliacoes`: média das notas
+  - `ativo`: retorna emoji de status
 
-* **`Restaurante.listar_restaurantes()`**
-  Exibe tabela alinhada de Nome, Categoria, Avaliação média e Situação (🟢/🔴).
+### `modelos/cardapio/`
 
-* **Propriedades**
+#### `item_cardapio.py`
 
-  * `.nome` e `.categoria`: formatação personalizada de texto (capitalização inteligente).
-  * `.ativo`: retorna emoji de status.
+- Classe abstrata base com método abstrato `aplicar_desconto()`.
+- Atributos: `_nome`, `_preco`.
 
-* **Métodos de instância**
+#### `prato.py`, `bebida.py`, `sobremesa.py`
 
-  * `alternar_estado()`: inverte `_ativo`, salva e retorna mensagem colorida com `colorama`.
-  * `receber_avaliacao(cliente, nota)`: cria instância `Avaliacao`, adiciona à lista e salva.
+- Herdam de `ItemCardapio`.
+- Implementam `aplicar_desconto()` com percentuais específicos:
+  - Prato: 5%
+  - Bebida: 8%
+  - Sobremesa: 15%
 
-* **Propriedade**
+### `schemas/schemas.py`
 
-  * `media_avaliacoes`: calcula média de `_nota`, arredonda uma casa decimal ou retorna `'-'`.
-
-### `modelos/avaliacao.py`
-
-Classe simples com validação de `nota` (1 a 5) em `__init__`, lançando `ValueError` para valores inválidos.
+- Modelos Pydantic para validação de dados nas requisições/respostas da API.
+- Tipos definidos:
+  - `CreateRestaurant`: cadastro de restaurante
+  - `Rating`: avaliação
+  - `MenuItem`: item do cardápio
+  - `RestaurantSummary`: resumo de restaurante
+  - `RestaurantDetail`: detalhes completos
+  - `AvaliacaoSchema`, `CardapioItemSchema`: tipos internos
 
 ## Conceitos Abordados no Curso
 
-* **Orientação a Objetos Avançada**
+- **Orientação a Objetos Avançada**
+  - Herança, polimorfismo e classes abstratas
+  - Encapsulamento com propriedades (`@property`)
+  - Métodos especiais e construtores personalizados
 
-  * Métodos de classe (`@classmethod`) vs. métodos de instância
-  * Propriedades (`@property`) para encapsular lógica de atributos
-  * Construtor (`__init__`) e métodos especiais (`__str__`, não usado aqui porém explorado anteriormente)
+- **Persistência de Dados**
+  - Manipulação de JSON com `json`
+  - Caminhos dinâmicos com `os.path`
 
-* **Persistência de Dados**
+- **Desenvolvimento Web com FastAPI**
+  - Criação de APIs RESTful
+  - Documentação automática (Swagger e ReDoc)
+  - Validação de entrada com Pydantic
 
-  * Módulo `json` para serialização/deserialização
-  * Manipulação de arquivos e diretórios com `os.path` e `os.makedirs`
+- **Tratamento de Exceções**
+  - Validação de dados com mensagens claras
+  - Tratamento de recursos inexistentes
 
-* **Formatação e Estilização**
-
-  * `colorama` para cores em terminal
-  * Capitalização inteligente de strings (ignorando preposições)
-
-* **Tratamento de Exceções**
-
-  * Validação de entradas (nota fora de faixa)
-  * Mensagens de erro informativas sem quebrar o fluxo
-
-* **Entrada e Saída em Terminal**
-
-  * Limpeza de tela com `os.system('clear')`
-  * Pausa entre operações para melhor usabilidade
-
-* **Testes Automatizados**
-
-  * `pytest` com fixtures para isolamento e monkeypatch
-  * Cobertura de fluxo de cadastro, listagem, avaliação, alternância e finalização
+- **Boas Práticas**
+  - Separação de responsabilidades
+  - Uso de ambientes virtuais
+  - Modularização do código
 
 ## Boas Práticas de Código
 
-* **PEP 8**: formatação de código padronizada, verificada via Flake8 com hook de pre-commit.
-* **Type Hints**: todas as funções e métodos declaram tipos de parâmetros e retorno para maior clareza e suporte a ferramentas de análise (mypy, IDEs).
-  
-## Testes
+- **PEP 8**: formatação padronizada verificada com `flake8`.
+- **Type Hints**: anotações de tipo em todas as funções e métodos.
+- **Clean Architecture**: separação clara entre domínio, infraestrutura e interface.
 
-Os testes estão em `tests/test_app.py` e cobrem:
+## Testes Automatizados
 
-* Exibição de título, opções e subtítulos
-* Fluxos de cadastro, listagem e alternância de estado (caso existente e não existente)
-* Funcionalidade de avaliação (sucesso, erro e restaurante não cadastrado)
-* Comportamento do loop principal (`main`), incluindo rota de finalização e roteamento de opções
+Os testes estão localizados em `tests/test_main.py` e cobrem:
 
-Para executar:
+- Criação, listagem, alternância de estado e avaliação de restaurantes
+- Adição e consulta de itens no cardápio
+- Aplicação correta de descontos
+- Tratamento de casos inválidos (ex.: duplicados, restaurante inexistente)
+
+A cobertura dos testes está em **94%**, garantindo robustez e confiabilidade no funcionamento da API.
+
+Para executar os testes:
 
 ```bash
 pytest --cov=. --cov-report html
@@ -189,8 +211,11 @@ pytest --cov=. --cov-report html
 Listadas em `requirements.txt`:
 
 ```
-colorama==0.4.6
-types-colorama==0.4.15.20240311
+fastapi==0.115.12
+uvicorn==0.34.3
+requests==2.32.4
+httpx==0.28.1
+pydantic==2.9.2
 pytest==8.4.0
 pytest-cov==6.1.1
 pytest-mock==3.14.1
@@ -199,3 +224,16 @@ mypy==1.16.0
 mypy_extensions==1.1.0
 pre_commit==4.2.0
 ```
+
+## TODO
+
+Futuramente, planeja-se implementar:
+
+- **Novos endpoints para CRUD completo de itens do cardápio**
+  - `PUT /restaurants/{nome}/menu/{item_nome}` – Atualizar item do cardápio
+  - `DELETE /restaurants/{nome}/menu/{item_nome}` – Remover item do cardápio
+
+- **Controle de desconto nos itens do cardápio**
+  - Garantir que o desconto só possa ser aplicado uma única vez por item
+  - Adicionar atributo `_desconto_aplicado` às classes filhas de `ItemCardapio`
+  - Validar antes de aplicar desconto se ele já foi aplicado previamente
