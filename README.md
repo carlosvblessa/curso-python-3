@@ -188,6 +188,8 @@ curso-python-3/
 - **PEP 8**: formatação padronizada verificada com `flake8`.
 - **Type Hints**: anotações de tipo em todas as funções e métodos.
 - **Clean Architecture**: separação clara entre domínio, infraestrutura e interface.
+- **Pre-commit hooks**: foi executado `pre-commit install` para garantir que apenas código formatado e válido seja commitado.
+- **Verificação estática de tipos com mypy**: utilizado para validar consistência de tipos em `main.py` e outros módulos, evitando erros em tempo de execução e melhorando a manutenibilidade do código.
 
 ## Testes Automatizados
 
